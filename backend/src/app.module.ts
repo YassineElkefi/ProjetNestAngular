@@ -3,9 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO_CONNECTION_STRING)],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING)],
   controllers: [AppController],
   providers: [AppService],
 })
@@ -18,6 +21,7 @@ export class AppModule implements OnModuleInit{
     });
 
     db.on('error', (error) => {
+
       console.error('Mongoose connection error:', error);
     });
   }
