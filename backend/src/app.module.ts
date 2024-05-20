@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { DepensesModule } from './depenses/depenses.module';
 import * as mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import { AuthModule } from './auth/auth.module';
@@ -14,9 +15,9 @@ import { AuthService } from './auth/auth.service';
 dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule],
-  controllers: [AppController, UserController, AuthController],
-  providers: [AppService, UserService, AuthService],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule implements OnModuleInit{
 

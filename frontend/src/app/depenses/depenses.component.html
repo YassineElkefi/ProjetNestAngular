@@ -1,0 +1,91 @@
+<div>
+
+  <div class="toggle-header" (click)="toggleFilters()">
+    <span>Filters</span>
+    <span [ngClass]="{'arrow-down': !filtersVisible, 'arrow-up': filtersVisible}"></span>
+  </div>
+  <form *ngIf="filtersVisible" (ngSubmit)="onSubmit()">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+    
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+    
+    <button type="submit">Filter</button>
+  </form>
+
+  <div class="toggle-header" (click)="toggleAddDepense()">
+    <span>Add Depense</span>
+    <span [ngClass]="{'arrow-down': !addDepenseVisible, 'arrow-up': addDepenseVisible}"></span>
+  </div>
+  <form *ngIf="addDepenseVisible" (ngSubmit)="addDepense()">    
+    <label for="newMontant">Montant:</label>
+    <input type="number" id="newMontant" [(ngModel)]="newDepense.montant" name="newMontant" required>
+    
+    <label for="newCategorie">Categorie:</label>
+    <input type="text" id="newCategorie" [(ngModel)]="newDepense.categorie" name="newCategorie" required>
+    
+    <label for="newDescription">Description:</label>
+    <input type="text" id="newDescription" [(ngModel)]="newDepense.description" name="newDescription" required>
+    
+    <label for="newTags">Tags (Comma separated values):</label>
+    <input type="text" id="newTags" [(ngModel)]="tagsInput" name="newTags">
+    
+    <button type="submit">Add Depense</button>
+  </form>
+
+  <div>
+    <h2>Expenses by Category</h2>
+    <div *ngIf="pieChartData.length > 0">
+      <ngx-charts-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="pieChartData"
+        [legend]="showLegend"
+        [explodeSlices]="explodeSlices"
+        [labels]="showLabels"
+        [doughnut]="doughnut"
+        [gradient]="gradient">
+      </ngx-charts-pie-chart>
+    </div>
+    
+  </div>
+
+<table>
+  <thead>
+    <tr>
+      <th 
+        (click)="sort('date')" 
+        [ngClass]="{'sortable': true, 'asc': sortBy === 'date' && sortOrder === 'asc', 'desc': sortBy === 'date' && sortOrder === 'desc'}"
+      >Date</th>
+      <th 
+        (click)="sort('montant')" 
+        [ngClass]="{'sortable': true, 'asc': sortBy === 'montant' && sortOrder === 'asc', 'desc': sortBy === 'montant' && sortOrder === 'desc'}"
+      >Montant</th>
+      <th 
+        (click)="sort('categorie')" 
+        [ngClass]="{'sortable': true, 'asc': sortBy === 'categorie' && sortOrder === 'asc', 'desc': sortBy === 'categorie' && sortOrder === 'desc'}"
+      >Categorie</th>
+      <th 
+        (click)="sort('description')" 
+        [ngClass]="{'sortable': true, 'asc': sortBy === 'description' && sortOrder === 'asc', 'desc': sortBy === 'description' && sortOrder === 'desc'}"
+      >Description</th>
+      <th 
+        (click)="sort('tags')" 
+        [ngClass]="{'sortable': true, 'asc': sortBy === 'tags' && sortOrder === 'asc', 'desc': sortBy === 'tags' && sortOrder === 'desc'}"
+      >Tags</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dep of depenses">
+      <td>{{ dep.date | date: 'medium' }}</td>
+      <td>{{ dep.montant }}</td>
+      <td>{{ dep.categorie }}</td>
+      <td>{{ dep.description }}</td>
+      <td>{{ dep.tags.join(' ') }}</td>
+      <td><button class="delete-btn" (click)="deleteDepense(dep._id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
