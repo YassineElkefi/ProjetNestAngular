@@ -1,0 +1,252 @@
+/* General table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+thead {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Border styling */
+th {
+    border-bottom: 2px solid #ddd;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Category column styling */
+td:nth-child(3) {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Tags styling */
+td:nth-child(5) {
+    font-style: italic;
+    color: #666;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin: 0 0 20px 0;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        white-space: nowrap;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+}
+
+/* Styles for sortable table headers */
+th.sortable {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  /* Indicator for ascending sort */
+  th.sortable.asc::after {
+    content: "▲";
+    position: absolute;
+    right: 8px;
+    font-size: 0.8em;
+  }
+  
+  /* Indicator for descending sort */
+  th.sortable.desc::after {
+    content: "▼";
+    position: absolute;
+    right: 8px;
+    font-size: 0.8em;
+  }
+  
+  /* Container Styling */
+div {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  form input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  thead th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  thead th:hover {
+    background-color: #0056b3;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    form {
+      padding: 10px;
+    }
+  
+    form input[type="date"], form button {
+      font-size: 14px;
+      padding: 6px;
+    }
+  
+    thead th, tbody td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+
+  /* Button Styles */
+button.delete-btn {
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #e74c3c; /* Red background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  button.delete-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+  }
+  
+  button.delete-btn:active {
+    background-color: #a93226; /* Even darker red on click */
+  }
+
+  .toggle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .toggle-header span {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .toggle-header .arrow-down::after {
+    content: '▼';
+    margin-left: 10px;
+  }
+  
+  .toggle-header .arrow-up::after {
+    content: '▲';
+    margin-left: 10px;
+  }
+  

@@ -15,10 +15,10 @@ export class DepensesService {
     return await createdDepense.save();
   }
 
-  async findAll(sortBy?:string){
+  async findAll(sortBy?:string, sortOrder?: string){
     const sortCriteria = {};
     if(sortBy){
-      sortCriteria[sortBy] = 1;
+      sortCriteria[sortBy] = sortOrder === 'desc' ? -1 : 1;
     }
     return await this.depenseModel.find().sort(sortCriteria).exec();
   }
@@ -45,19 +45,21 @@ export class DepensesService {
   }
 
   async filterByPeriod(startDate: Date, endDate: Date): Promise<Depense[]> {
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setHours(23, 59, 59, 999);
     return await this.depenseModel.find({
       date: {
         $gte: startDate,
-        $lte: endDate
-      }
-    }).exec();
+        $lte: adjustedEndDate
+    }}
+  ).exec();
   }
 
   async getExpensesByCategory(period: Date): Promise<any> {
     const depensesByCategory = await this.depenseModel.aggregate([
       {
         $match: {
-          date: { $gte: new Date(period) }
+          date: { $lte: new Date(period) }
         }
       },
       {

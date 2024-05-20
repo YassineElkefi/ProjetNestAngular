@@ -13,10 +13,15 @@ export class DepensesController {
   }
 
   @Get()
-  findAll(@Query('sortBy') sortBy?: string) {
-    return this.depensesService.findAll(sortBy);
+  findAll(@Query('sortBy') sortBy?: string, @Query('sortOrder') sortOrder?: string){
+    return this.depensesService.findAll(sortBy, sortOrder);
   }
-
+  
+  @Get('by-category/:period')
+  async getExpensesByCategory(@Param('period') period: string): Promise<any> {
+    const depenses = await this.depensesService.getExpensesByCategory(new Date(period));
+    return depenses;
+  }
   @Get('filter')
   async filterByPeriod(@Query('startDate') startDate: string, @Query('endDate') endDate: string) {
     return this.depensesService.filterByPeriod(new Date(startDate), new Date(endDate));
@@ -35,10 +40,5 @@ export class DepensesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.depensesService.remove(id);
-  }
-  @Get('by-category/:period')
-  async getExpensesByCategory(@Param('period') period: string): Promise<any> {
-    const depenses = await this.depensesService.getExpensesByCategory(new Date(period));
-    return depenses;
   }
 }
