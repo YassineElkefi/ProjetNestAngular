@@ -27,8 +27,8 @@ export class DepensesService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addDepense(depense:Depense):Observable<Depense>{
-    return this.http.post<Depense>(this.baseUrl, depense);
+  addDepense(depense: Depense, userId: string): Observable<Depense> {
+    return this.http.post<Depense>(`${this.baseUrl}?userId=${userId}`, depense);
   }
 
   updateDepense(id:string, depense:Depense){
@@ -39,8 +39,8 @@ export class DepensesService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  getExpensesByCategory(period: Date): Observable<any> {
-    return this.http.get(`${this.baseUrl}/by-category/${period.toISOString()}`);
+  getExpensesByCategory(userId: string, period: Date): Observable<any> {
+    return this.http.get(`${this.baseUrl}/by-category/${period.toISOString()}/${userId}`);
   }
 
 }

@@ -1,5 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+<<<<<<< HEAD
 import { Category } from "src/category/schema/category.schema";
+=======
+import { Types } from "mongoose";
+>>>>>>> d26290f5308fdbe643f3b7c1751fcd3eb874d03d
 
 export type DepenseDocument = Depense & Document;
 
@@ -21,6 +25,9 @@ export class Depense{
 
     @Prop({ type: [String] , required: false})
     tags: string[];
+
+    @Prop({required: true })
+    userId: string;
 }
 
 export const DepenseSchema = SchemaFactory.createForClass(Depense);

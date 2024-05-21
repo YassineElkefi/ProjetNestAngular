@@ -3,17 +3,17 @@ import { CreateDepenseDto } from './dto/create-depense.dto';
 import { UpdateDepenseDto } from './dto/update-depense.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Depense } from './schema/depenses.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class DepensesService {
 
   constructor(@InjectModel(Depense.name) private depenseModel: Model<Depense>){}
 
-  async create(createDepenseDto: CreateDepenseDto) {
-    const createdDepense = new this.depenseModel(createDepenseDto);
+  async create(createDepenseDto: CreateDepenseDto, userId: string) {
+    const createdDepense = new this.depenseModel({ ...createDepenseDto, userId });
     return await createdDepense.save();
-  }
+}
 
   async findAll(sortBy?:string, sortOrder?: string){
     const sortCriteria = {};
@@ -55,10 +55,11 @@ export class DepensesService {
   ).exec();
   }
 
-  async getExpensesByCategory(period: Date): Promise<any> {
+  async getExpensesByCategory(userId: string, period: Date): Promise<any> {
     const depensesByCategory = await this.depenseModel.aggregate([
       {
         $match: {
+          userId: userId,
           date: { $lte: new Date(period) }
         }
       },
@@ -70,6 +71,6 @@ export class DepensesService {
       }
     ]);
     return depensesByCategory;
-}
+  }
 
 }
