@@ -1,20 +1,21 @@
-<div class="report-container">
+<div class="main-container">
+  <div class="report-container">
     <div class="date-inputs">
       <label for="startDate">Start Date:</label>
       <input type="date" id="startDate" [(ngModel)]="startDate">
-  
+
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" [(ngModel)]="endDate">
-  
+
       <button (click)="generateReport()">Generate Report</button>
     </div>
-  
+
     <div *ngIf="filteredTransactions.length > 0" class="report-details">
       <h3>Transactions Report</h3>
       <p>Report for transactions from <strong>{{ startDate }}</strong> to <strong>{{ endDate }}</strong>:</p>
       <p>Total number of transactions: <strong>{{ transactionCount }}</strong></p>
       <p>Total amount spent: <strong>{{ totalAmount | currency }}</strong></p>
-  
+
       <div class="transaction-list">
         <h4>Detailed Transactions:</h4>
         <ul>
@@ -25,12 +26,12 @@
         </ul>
       </div>
     </div>
-  
+
     <div *ngIf="filteredTransactions.length === 0 && startDate && endDate" class="no-transactions">
       <p>No transactions found for the selected period.</p>
     </div>
   </div>
-  
+
   <div class="container-fluid">
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-8">
@@ -38,6 +39,4 @@
       </div>
     </div>
   </div>
-  
-  
-  
+</div>

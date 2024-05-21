@@ -17,16 +17,12 @@ export class DepensesComponent implements OnInit{
   depenses: Depense[] = [];
   newDepense: Depense = new Depense(null,0, new Date(),"","",null, []);
   tagsInput: string = '';
-
   sortBy: string = '';
   sortOrder: string = 'asc';
-
   startDate: string = '';
   endDate: string = '';
-
   filtersVisible: boolean = false;
   addDepenseVisible: boolean = false;
-
   view: [number, number] = [700, 400];
   showLegend = true;
   showLabels = true;
@@ -36,10 +32,9 @@ export class DepensesComponent implements OnInit{
   colorScheme: string | Color = 'cool'; 
   pieChartData: any[] = [];
   categories: Category[] = [];
-
   categorySelect:""
-
   userId;
+
 
   constructor(private depenseService: DepensesService, private categoryService: CategoryService,private cookieService: CookieService, private authService:AuthService) { }
 
@@ -120,20 +115,32 @@ export class DepensesComponent implements OnInit{
   }
 
   addDepense() {
-
-
     this.newDepense.tags = this.tagsInput ? this.tagsInput.split(',').map(tag => tag.trim()) : [];
     this.newDepense.date = new Date();
     this.newDepense.userId = this.userId;
     this.newDepense.category = this.categorySelect;
-    console.log('Adding new depense:', this.newDepense);
+
+    const category = this.categories.find(cat => cat.name === this.newDepense.category);
+    if (!category) {
+      console.error('Category not found');
+      return;
+    }
+
+    const totalExpenses = this.depenses
+      .filter(dep => dep.category === this.newDepense.category)
+      .reduce((sum, dep) => sum + dep.montant, 0) + this.newDepense.montant;
+
+    if (totalExpenses > category.budget) {
+      alert(`Budget exceeded for category ${this.newDepense.category}. Total expenses: ${totalExpenses}, Budget: ${category.budget}`);
+    }
+
+      this.depenseService.addDepense(this.newDepense, this.userId).subscribe(newDepense => {
+        this.newDepense = new Depense(null, 0, new Date(), '', '', null, []);
+        this.tagsInput = '';
+        this.ngOnInit();
+      });
     
-    this.depenseService.addDepense(this.newDepense, this.userId).subscribe(newDepense => {
-      this.ngOnInit(); 
-      this.newDepense = new Depense(null, 0, new Date(), "", "",null, []);
-      this.tagsInput = '';
-    });
-}
+  }
 
 
 

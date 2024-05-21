@@ -10,7 +10,6 @@ import { Category } from '../models/Category.model';
 export class CategoryComponent implements OnInit{
   categories: Category[];
   newCategory: Category = {
-    _id: '',
     name: '',
     budget: 0
   };
@@ -30,7 +29,8 @@ ngOnInit(): void {
     this.categoryService.addCategory(this.newCategory).subscribe(
       response => {
         console.log('Category added successfully', response);
-        this.newCategory = {_id: '', name: '', budget: 0 }; 
+        this.newCategory = { name: '', budget: 0 }; 
+        this.ngOnInit();
       },
       error => {
         console.error('Error adding category', error);

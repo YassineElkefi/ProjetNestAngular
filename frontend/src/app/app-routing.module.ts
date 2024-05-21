@@ -7,6 +7,7 @@ import { authGuard } from './guards/auth.guard';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CategoryComponent } from './category/category.component';
+import { DepenseChartComponent } from './depense-chart/depense-chart.component';
 
 const routes: Routes = [
   { path: 'auth/register', component: RegisterComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'depenses', component: DepensesComponent, canActivate: [authGuard]},
   { path: '', redirectTo: 'depenses', pathMatch: 'full'},
-  { path: 'category', component: CategoryComponent}
+  { path: 'categorie', component: CategoryComponent},
+  { path: 'rapport', component: DepenseChartComponent}
 ];
 
 @NgModule({

@@ -1,6 +1,4 @@
-
-<div>
-
+<div class="container">
   <div class="toggle-header" (click)="toggleFilters()">
     <span>Filters</span>
     <span [ngClass]="{'arrow-down': !filtersVisible, 'arrow-up': filtersVisible}"></span>
@@ -27,10 +25,6 @@
     <select id="newCategorie" [(ngModel)]="categorySelect" name="newCategorie" required>
       <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
     </select>
-    
-    
-    
-
     
     <label for="newDescription">Description:</label>
     <input type="text" id="newDescription" [(ngModel)]="newDepense.description" name="newDescription" required>
@@ -60,43 +54,26 @@
     </div>
   </div>
 
-<table>
-  <thead>
-    <tr>
-      <th 
-        (click)="sort('date')" 
-        [ngClass]="{'sortable': true, 'asc': sortBy === 'date' && sortOrder === 'asc', 'desc': sortBy === 'date' && sortOrder === 'desc'}"
-      >Date</th>
-      <th 
-        (click)="sort('montant')" 
-        [ngClass]="{'sortable': true, 'asc': sortBy === 'montant' && sortOrder === 'asc', 'desc': sortBy === 'montant' && sortOrder === 'desc'}"
-      >Montant</th>
-      <th 
-        (click)="sort('categorie')" 
-        [ngClass]="{'sortable': true, 'asc': sortBy === 'categorie' && sortOrder === 'asc', 'desc': sortBy === 'categorie' && sortOrder === 'desc'}"
-      >Categorie</th>
-      <th 
-        (click)="sort('description')" 
-        [ngClass]="{'sortable': true, 'asc': sortBy === 'description' && sortOrder === 'asc', 'desc': sortBy === 'description' && sortOrder === 'desc'}"
-      >Description</th>
-      <th 
-        (click)="sort('tags')" 
-        [ngClass]="{'sortable': true, 'asc': sortBy === 'tags' && sortOrder === 'asc', 'desc': sortBy === 'tags' && sortOrder === 'desc'}"
-      >Tags</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dep of depenses">
-      <td>{{ dep.date | date: 'medium' }}</td>
-      <td>{{ dep.montant }}</td>
-      <td>{{ dep.category }}</td>
-      <td>{{ dep.description }}</td>
-      <td>{{ dep.tags.join(' ') }}</td>
-      <td><button class="delete-btn" (click)="deleteDepense(dep._id)">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th (click)="sort('date')">Date</th>
+        <th (click)="sort('montant')">Montant</th>
+        <th (click)="sort('category')">Categorie</th>
+        <th (click)="sort('description')">Description</th>
+        <th (click)="sort('tags')">Tags</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dep of depenses">
+        <td>{{ dep.date | date: 'medium' }}</td>
+        <td>{{ dep.montant }}</td>
+        <td>{{ dep.category }}</td>
+        <td>{{ dep.description }}</td>
+        <td>{{ dep.tags.join(', ') }}</td>
+        <td><button (click)="deleteDepense(dep._id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
-<app-depense-chart></app-depense-chart>
