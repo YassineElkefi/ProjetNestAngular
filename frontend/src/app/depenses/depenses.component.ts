@@ -6,6 +6,7 @@ import { Category } from '../models/Category.model';
 import { CategoryService } from '../services/category.service';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-depenses',
