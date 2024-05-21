@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Types } from "mongoose";
 
 export type DepenseDocument = Depense & Document;
 
@@ -19,6 +20,9 @@ export class Depense{
 
     @Prop({ type: [String] , required: false})
     tags: string[];
+
+    @Prop({required: true })
+    userId: string;
 }
 
 export const DepenseSchema = SchemaFactory.createForClass(Depense);

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/User.model';
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,16 @@ export class AuthService {
         }
       })
     )
+  }
+
+  getUserIdFromToken(token: string): string | null {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.sub;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
   }
 
   forgotPassword(email: string): Observable <any>{

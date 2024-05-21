@@ -5,6 +5,8 @@ export class Depense {
         public date: Date,
         public categorie: string,
         public description: string,
+        public userId: string,
         public tags?: string[],
+
     ){}
 }
