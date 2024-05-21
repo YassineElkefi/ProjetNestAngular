@@ -1,0 +1,95 @@
+.report-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .date-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .date-inputs label {
+    margin-right: 10px;
+  }
+  
+  .date-inputs input[type="date"] {
+    margin-right: 20px;
+    padding: 5px;
+  }
+  
+  .date-inputs button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .date-inputs button:hover {
+    background-color: #0056b3;
+  }
+  
+  .report-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .report-details h3 {
+    margin-top: 0;
+  }
+  
+  .transaction-list {
+    margin-top: 20px;
+  }
+  
+  .transaction-list h4 {
+    margin-bottom: 10px;
+  }
+  
+  .transaction-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .transaction-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .transaction-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .transaction-date {
+    font-weight: bold;
+  }
+  
+  .no-transactions {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffdddd;
+    border: 1px solid #ffaaaa;
+    border-radius: 10px;
+    color: #d8000c;
+  }
+  
+  .chart-canvas {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    max-height: 400px;
+    margin: 0 auto;
+  }
+  
+  
