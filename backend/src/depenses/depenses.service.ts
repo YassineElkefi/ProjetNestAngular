@@ -65,7 +65,7 @@ export class DepensesService {
       },
       {
         $group: {
-          _id: "$categorie",
+          _id: "$category",
           totalAmount: { $sum: "$montant" }
         }
       }

@@ -24,8 +24,8 @@
     <input type="number" id="newMontant" [(ngModel)]="newDepense.montant" name="newMontant" required>
     
     <label for="newCategorie">Categorie:</label>
-    <select id="newCategorie" [(ngModel)]="newDepense.category" name="newCategorie" required>
-      <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+    <select id="newCategorie" [(ngModel)]="categorySelect" name="newCategorie" required>
+      <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
     </select>
     
     

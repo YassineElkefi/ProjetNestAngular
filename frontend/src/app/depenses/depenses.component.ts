@@ -6,6 +6,7 @@ import { Category } from '../models/Category.model';
 import { CategoryService } from '../services/category.service';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-depenses',
@@ -35,6 +36,8 @@ export class DepensesComponent implements OnInit{
   colorScheme: string | Color = 'cool'; 
   pieChartData: any[] = [];
   categories: Category[] = [];
+
+  categorySelect:""
 
   userId;
 
@@ -122,6 +125,7 @@ export class DepensesComponent implements OnInit{
     this.newDepense.tags = this.tagsInput ? this.tagsInput.split(',').map(tag => tag.trim()) : [];
     this.newDepense.date = new Date();
     this.newDepense.userId = this.userId;
+    this.newDepense.category = this.categorySelect;
     console.log('Adding new depense:', this.newDepense);
     
     this.depenseService.addDepense(this.newDepense, this.userId).subscribe(newDepense => {
