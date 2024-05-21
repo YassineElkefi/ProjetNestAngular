@@ -95,6 +95,7 @@ export class DepensesComponent implements OnInit{
     this.depenseService.deleteDepense(id).subscribe({
       next: () => {
         this.depenses = this.depenses.filter(depense => depense._id !== id);
+        this.ngOnInit();
       },
       error: (error) => {
         console.error(error);

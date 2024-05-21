@@ -82,7 +82,7 @@
         <td>{{ dep.category }}</td>
         <td>{{ dep.description }}</td>
         <td>{{ dep.tags.join(', ') }}</td>
-        <td><button (click)="deleteDepense(dep._id)">Delete</button></td>
+        <td><button class="delete-btn"  (click)="deleteDepense(dep._id)">Delete</button></td>
       </tr>
     </tbody>
   </table>
