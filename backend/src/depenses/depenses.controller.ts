@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { DepensesService } from './depenses.service';
 import { CreateDepenseDto } from './dto/create-depense.dto';
 import { UpdateDepenseDto } from './dto/update-depense.dto';
 import { Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 
@@ -44,5 +45,11 @@ async getExpensesByCategory(@Param('period') period: string, @Param('userId') us
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.depensesService.remove(id);
+  }
+
+  @Post('import-csv')
+  @UseInterceptors(FileInterceptor('file'))
+  async importCSV(@UploadedFile() file) {
+    await this.depensesService.importCSV(file.buffer.toString());
   }
 }

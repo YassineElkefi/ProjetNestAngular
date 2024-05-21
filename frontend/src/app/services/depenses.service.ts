@@ -43,4 +43,8 @@ export class DepensesService {
     return this.http.get(`${this.baseUrl}/by-category/${period.toISOString()}/${userId}`);
   }
 
+  importCSV(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/import-csv`, formData);
+  }
+
 }
