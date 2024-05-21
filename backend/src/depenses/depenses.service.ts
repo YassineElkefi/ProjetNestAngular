@@ -4,6 +4,7 @@ import { UpdateDepenseDto } from './dto/update-depense.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Depense } from './schema/depenses.schema';
 import { Model, Types } from 'mongoose';
+import { parse } from 'papaparse';
 
 @Injectable()
 export class DepensesService {
@@ -71,6 +72,13 @@ export class DepensesService {
       }
     ]);
     return depensesByCategory;
+  }
+
+  async importCSV(csvData: string): Promise<void> {
+    const results = parse(csvData, { header: true });
+    for (const result of results.data) {
+      await this.depenseModel.create(result);
+    }
   }
 
 }

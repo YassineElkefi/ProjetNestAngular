@@ -7,6 +7,8 @@ import { CategoryService } from '../services/category.service';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { parse } from "papaparse";
+import { unparse } from "papaparse";
 
 @Component({
   selector: 'app-depenses',
@@ -23,6 +25,8 @@ export class DepensesComponent implements OnInit{
   endDate: string = '';
   filtersVisible: boolean = false;
   addDepenseVisible: boolean = false;
+  csvUploadVisible: boolean = false;
+
   view: [number, number] = [700, 400];
   showLegend = true;
   showLabels = true;
@@ -32,7 +36,12 @@ export class DepensesComponent implements OnInit{
   colorScheme: string | Color = 'cool'; 
   pieChartData: any[] = [];
   categories: Category[] = [];
+  selectedFile:any;
   categorySelect:""
+
+  file: File;
+  formData: FormData;
+
   userId;
 
 
@@ -150,10 +159,57 @@ export class DepensesComponent implements OnInit{
   toggleAddDepense(){
     this.addDepenseVisible = !this.addDepenseVisible;
   }
+
+  toggleCSVUpload(){
+    this.csvUploadVisible = !this.csvUploadVisible;
+  }
+
   loadExpensesByCategory(period: Date) {
     this.depenseService.getExpensesByCategory(this.userId, period).subscribe(data => {
       this.pieChartData = data.map(item => ({ name: item._id, value: item.totalAmount }));
       console.log('Pie Chart Data:', this.pieChartData); 
+    });
+  }
+
+  onCSVFileSelected(event): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.selectedFile = fileList[0];
+    }
+  }
+
+  onUploadButtonClicked(): void {
+    if (this.selectedFile) {
+      this.readCSV(this.selectedFile);
+    }
+  }
+
+  readCSV(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const csvContent = reader.result as string;
+      const parsedData = parse(csvContent, { header: true });
+      this.addUserIdToCSV(parsedData.data);
+    };
+    reader.readAsText(file);
+  }
+
+  addUserIdToCSV(data: any[]): void {
+    const updatedData = data.map(row => ({ ...row, userId: this.userId }));
+    const newCSV = unparse(updatedData);
+
+    const blob = new Blob([newCSV], { type: 'text/csv;charset=utf-8;' });
+    const newFile = new File([blob], 'updated_data.csv', { type: 'text/csv' });
+    
+    const formData = new FormData();
+    formData.append('file', newFile, newFile.name);
+
+    this.uploadCSV(formData);
+  }
+
+  uploadCSV(formData: FormData): void {
+    this.depenseService.importCSV(formData).subscribe(() => {
+      this.ngOnInit();
     });
   }
 }

@@ -35,6 +35,16 @@
     <button type="submit">Add Depense</button>
   </form>
 
+    <!-- CSV Upload Form -->
+    <div class="toggle-header" (click)="toggleCSVUpload()">
+      <span>Upload CSV</span>
+      <span [ngClass]="{'arrow-down': !csvUploadVisible, 'arrow-up': csvUploadVisible}"></span>
+    </div>
+    <form *ngIf="csvUploadVisible" (ngSubmit)="onUploadButtonClicked()">    
+      <input type="file" accept=".csv" (change)="onCSVFileSelected($event)">
+      <button type="submit">Upload CSV</button>
+    </form>
+
   <div>
     <h2>Expenses by Category</h2>
     <div *ngIf="pieChartData.length > 0">
