@@ -7,15 +7,12 @@ import { DepensesModule } from './depenses/depenses.module';
 import * as mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import { AuthModule } from './auth/auth.module';
-import { UserController } from './user/user.controller';
-import { UserService } from './user/user.service';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
+import { CategoryModule } from './category/category.module';
 
 dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule, CategoryModule],
   controllers: [AppController],
   providers: [AppService],
 })

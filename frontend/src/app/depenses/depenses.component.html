@@ -23,7 +23,13 @@
     <input type="number" id="newMontant" [(ngModel)]="newDepense.montant" name="newMontant" required>
     
     <label for="newCategorie">Categorie:</label>
-    <input type="text" id="newCategorie" [(ngModel)]="newDepense.categorie" name="newCategorie" required>
+    <select id="newCategorie" [(ngModel)]="newDepense.category" name="newCategorie" required>
+      <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+    </select>
+    
+    
+    
+
     
     <label for="newDescription">Description:</label>
     <input type="text" id="newDescription" [(ngModel)]="newDepense.description" name="newDescription" required>
@@ -81,7 +87,7 @@
     <tr *ngFor="let dep of depenses">
       <td>{{ dep.date | date: 'medium' }}</td>
       <td>{{ dep.montant }}</td>
-      <td>{{ dep.categorie }}</td>
+      <td>{{ dep.category }}</td>
       <td>{{ dep.description }}</td>
       <td>{{ dep.tags.join(' ') }}</td>
       <td><button class="delete-btn" (click)="deleteDepense(dep._id)">Delete</button></td>

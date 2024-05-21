@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h4>Add Category</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="addCategory()">
+          <div class="mb-3">
+            <label for="categoryName" class="form-label">Category Name:</label>
+            <input type="text" id="categoryName" class="form-control" [(ngModel)]="newCategory.name" name="categoryName" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="categoryBudget" class="form-label">Budget:</label>
+            <input type="number" id="categoryBudget" class="form-control" [(ngModel)]="newCategory.budget" name="categoryBudget" required>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="card mt-4">
+      <div class="card-header">
+        <h4>Categories</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let category of categories" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ category.name }}</strong> - ${{ category.budget }}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Category } from "src/category/schema/category.schema";
 
 export type DepenseDocument = Depense & Document;
 
@@ -11,8 +12,9 @@ export class Depense{
     @Prop({ default: Date.now })
     date: Date;
 
-    @Prop({ required: true })
-    categorie: string;
+    @Prop({ type: String, required: true })
+    category: string;
+       
 
     @Prop()
     description: string;

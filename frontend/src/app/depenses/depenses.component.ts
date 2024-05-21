@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Depense } from '../models/Depense.model';
 import { DepensesService } from '../services/depenses.service';
 import { Color,ColorHelper } from '@swimlane/ngx-charts';
+import { Category } from '../models/Category.model';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-depenses',
@@ -10,7 +12,7 @@ import { Color,ColorHelper } from '@swimlane/ngx-charts';
 })
 export class DepensesComponent implements OnInit{
   depenses: Depense[] = [];
-  newDepense: Depense = new Depense(null,0, new Date(),"","", []);
+  newDepense: Depense = new Depense(null, 0, new Date(), null, '', []);
   tagsInput: string = '';
 
   sortBy: string = '';
@@ -28,15 +30,24 @@ export class DepensesComponent implements OnInit{
   explodeSlices = false;
   doughnut = false;
   gradient = false;
-  colorScheme: string | Color = 'cool'; // Using a predefined color scheme
+  colorScheme: string | Color = 'cool'; 
   pieChartData: any[] = [];
+  categories: Category[] = [];
 
-  constructor(private depenseService: DepensesService) { }
+  constructor(private depenseService: DepensesService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.loadDepenses();
-    const period = new Date(); // Adjust this to the desired period
+    const period = new Date();
     this.loadExpensesByCategory(period);
+    this.fetchCategories();
+  }
+
+
+  fetchCategories(): void {
+    this.categoryService.getCategories().subscribe((data: Category[]) => {
+      this.categories = data;
+    });
   }
 
   loadDepenses(){
@@ -80,13 +91,17 @@ export class DepensesComponent implements OnInit{
   }
 
   addDepense() {
-    this.newDepense.tags = this.tagsInput ? this.tagsInput.split(',').map(tag => tag.trim()) : [];    this.newDepense.date = new Date();
+    console.log(this.newDepense);
+    this.newDepense.tags = this.tagsInput ? this.tagsInput.split(',').map(tag => tag.trim()) : [];
+    this.newDepense.date = new Date();
     this.depenseService.addDepense(this.newDepense).subscribe(newDepense => {
-      this.ngOnInit()
-      this.newDepense = new Depense(null, 0, new Date(), "", "", []);
+      this.ngOnInit();
+      this.newDepense = new Depense(null, 0, new Date(), null, "", []);
       this.tagsInput = '';
     });
-  }
+}
+
+
 
   toggleFilters() {
     this.filtersVisible = !this.filtersVisible;
@@ -97,7 +112,7 @@ export class DepensesComponent implements OnInit{
   loadExpensesByCategory(period: Date) {
     this.depenseService.getExpensesByCategory(period).subscribe(data => {
       this.pieChartData = data.map(item => ({ name: item._id, value: item.totalAmount }));
-      console.log('Pie Chart Data:', this.pieChartData);  // Log the data
+      console.log('Pie Chart Data:', this.pieChartData); 
     });
   }
 }
