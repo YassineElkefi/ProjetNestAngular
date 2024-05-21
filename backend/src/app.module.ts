@@ -19,7 +19,7 @@ import { ResetPasswordModule } from './reset-password/reset-password.module';
 dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule, CategoryModule, ResetPasswordModule],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule, CategoryModule , ResetPasswordModule],
   controllers: [AppController],
   providers: [AppService],
 })
