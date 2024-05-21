@@ -11,11 +11,14 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
+import { PasswordResetService } from './reset-password/reset-password.service';
+import { PasswordResetController } from './reset-password/reset-password.controller';
+import { ResetPasswordModule } from './reset-password/reset-password.module';
 
 dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), AuthModule, UserModule, DepensesModule, ResetPasswordModule],
   controllers: [AppController],
   providers: [AppService],
 })
